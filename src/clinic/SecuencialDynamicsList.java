@@ -4,18 +4,13 @@
  */
 package clinic;
 
-import java.util.Iterator;
-
 /**
  *
- * @author joanreciojimenez
+ * @author brand
  */
-public interface DynamicsLists <T> {
-    public boolean add(T item);
+public interface SecuencialDynamicsList <T> extends DynamicsLists <T> {
+    public T get();
+    public boolean remove();
     
-    public Iterator getAll();
     
-    public int size();
-    public boolean isEmpty();
 }
-    
