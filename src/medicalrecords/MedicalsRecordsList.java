@@ -5,6 +5,7 @@
 package medicalrecords;
 
 import clinic.SecuencialDynamicsList;
+import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -20,32 +21,44 @@ public class MedicalsRecordsList implements SecuencialDynamicsList<MedicalRecord
 
     @Override
     public MedicalRecord get() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return medicalHistory.peek();
+        } catch (EmptyStackException e) {
+            return null;
+        }
     }
+    
 
     @Override
     public boolean remove() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            medicalHistory.pop();
+        } catch (EmptyStackException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public boolean add() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean add( MedicalRecord item) {
+        medicalHistory.push(item); 
+        return true;
+        
     }
-
     @Override
     public Iterator getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       if(medicalHistory.isEmpty()) return null;
+       return medicalHistory.iterator();
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return medicalHistory.size();
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return medicalHistory.isEmpty();
     }
     
 }
