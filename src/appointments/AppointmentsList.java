@@ -20,33 +20,43 @@ public class AppointmentsList implements KeyDynamicsLists<Appointment, String>{
 
     @Override
     public Appointment get(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(Appointment actual : appointments){
+            if (actual.getCode().equals(id)) {
+                return actual;
+            }
+        }
+        return null;
+
     }
 
     @Override
     public boolean remove(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Appointment encontrado = get(id);
+        if(encontrado == null){
+            return false;
+        }
+        return appointments.remove(encontrado);
     }
 
     @Override
-    public boolean add() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean add(Appointment item) {
+       return appointments.add(item);
     }
 
     @Override
     public Iterator getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(appointments.isEmpty()) return null;
+        return appointments.iterator();
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return appointments.size();
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return appointments.isEmpty();
     }
-    
 }
 
