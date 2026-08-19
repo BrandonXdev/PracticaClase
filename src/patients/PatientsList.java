@@ -20,20 +20,19 @@ public class PatientsList implements KeyDynamicsLists<Patient, String>{
     }
 
     @Override
-    public String get(Patient id) {
-     if(!patients.containsKey(id))  return null;
-     return patients.get(id);
+    public Patient get(String id) {
+    return patients.get(id);
     }
 
     @Override
-    public boolean remove(Patient id) {
+    public boolean remove(String id) {
       return patients.remove(id) !=null;
     }
 
     @Override 
-    public boolean add() {
-     if(patients.containsKey(item.id()))  return false;
-     return patients.put(item.getid(), item)==null;
+    public boolean add(Patient item) {
+     if(patients.containsKey(item.getId()))  return false;
+     return patients.put(item.getId(), item) == null;
     }
 
     @Override
