@@ -12,5 +12,5 @@ public interface iView <T> {
     public void clear();
     public void showData(T data);
     public void showError(String error);
-    public void showMenssge(String message);
+    public void showMenssage(String message);
 }
