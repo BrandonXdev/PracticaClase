@@ -55,7 +55,7 @@ public class MedicalsRecordsList implements SecuencialDynamicsList<MedicalRecord
     public int size() {
         return medicalHistory.size();
     }
-
+    
     @Override
     public boolean isEmpty() {
         return medicalHistory.isEmpty();
