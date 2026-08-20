@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Iterator;
 import patients.Patient;
+
+import patients.PatientsList;
 import waitingroom.WaitingRoomList;
 
 /**
@@ -17,7 +19,7 @@ import waitingroom.WaitingRoomList;
  * @author brand
  */
 public class Clinic {
-    private PatiensList patients;
+    private PatientsList patients;
     private AppointmentsList appointments;
     private WaitingRoomList waitingroom;
 
@@ -28,21 +30,42 @@ public class Clinic {
     }
     
     public boolean addPatient(Patient patient) {
+        
+        if (patient == null) return false;
+        return patients.add(patient);    
     }
 
     public Patient findPatient(String id) {
+        if (id == null || patients.isEmpty()) return null;
+        
+        return patients.get(id); 
     }
 
     public boolean removePatient(String id) {
+        if (patients.isEmpty()){
+            return false;
+        }
+        
+        return patients.remove(id);
     }
 
     public Iterator<Patient> getPatients() {
+        return patients.getAll();    
     }
 
     public boolean scheduleAppointment(Appointment appointment) {
+        if (appointment == null) return false;
+        if (appointments.get(appointment.getCode()) != null) {
+        return false;
+        }
+        return appointments.add(appointment);
     }
 
     public Appointment findAppointment(String code) {
+        if (code == null || appointments.isEmpty()) {
+            return null;
+        }
+        return appointments.get(code);
     }
 
     public boolean rescheduleAppointment(String code, LocalDate newDate, LocalTime newTime) {
@@ -54,11 +77,14 @@ public class Clinic {
     }
 
     public boolean cancelAppointment(String code) {
-
+        if (code == null || appointments.isEmpty()) {
+            return false;
+        }
+        return appointments.remove(code);
     }
 
     public Iterator<Appointment> getAppointments() {
-
+        return appointments.getAll();    
     }
 
     public boolean checkInPatient(String patientId) {
@@ -76,20 +102,49 @@ public class Clinic {
     }
 
     public Patient getNextPatient() {
+        if (waitingroom.isEmpty()) {
+            return null;
+        }
+        return waitingroom.get();
 
     }
 
     public Patient attendNextPatient() {
-
+        if (waitingroom.isEmpty()) {
+            return null;
+        }
+        Patient patient = waitingroom.get();
+        waitingroom.remove();
+        
+        return patient;
     }
 
     public int getWaitingPatientCount() {
-
-    }
-
-    public boolean isPatientWaiting(String patientId) {
-
+       return waitingroom.size();
     }
     
-    
+     public boolean isPatientWaiting(String patientId) {
+
+        if (patientId == null || waitingroom.isEmpty()) {
+            return false;
+        }
+
+        Iterator<Patient> it = waitingroom.getAll();
+
+        while (it.hasNext()) {
+
+            Patient patient = it.next();
+
+            if (patient.getId().equals(patientId)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+     
 }
+
+ 
+    
+
