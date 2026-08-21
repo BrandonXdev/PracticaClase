@@ -143,6 +143,11 @@ public class Clinic {
         return false;
     }
      
+    public Iterator<Patient> getWaitingPatients() {
+        return waitingroom.getAll();
+    }
+
+     
 }
 
  

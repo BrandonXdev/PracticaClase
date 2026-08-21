@@ -1,22 +1,17 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package medicalrecords;
-
-/**
- *
- * @author joanreciojimenez
- */
+import javax.swing.JOptionPane;
+import patients.Patient;
 public class frmMedicalRecords extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmMedicalRecords.class.getName());
-
-    /**
-     * Creates new form frmMedicalRecords
-     */
+    private Patient patient; 
     public frmMedicalRecords() {
         initComponents();
+        this.patient = patient;
     }
 
     /**
@@ -70,6 +65,7 @@ public class frmMedicalRecords extends javax.swing.JFrame {
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         btnGuardar.setText("Guardar Consulta");
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,16 +121,30 @@ public class frmMedicalRecords extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        txtMotivo.setText("");
+        txtDiagnostico.setText("");
+        txtTratamiento.setText("");
+        txtNotas.setText("");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMotivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMotivoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+      MedicalRecord record = new MedicalRecord(
+
+    txtMotivo.getText(),
+
+    txtDiagnostico.getText(),
+
+    txtTratamiento.getText(),
+
+    txtNotas.getText());
+    JOptionPane.showMessageDialog(this, "Consulta guardada correctamente");  
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
