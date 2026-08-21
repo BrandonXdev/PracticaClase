@@ -44,7 +44,7 @@ public class frmMedicalRecords extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Motico de Consulta ");
+        jLabel1.setText("Motivo de Consulta ");
 
         txtMotivo.addActionListener(this::txtMotivoActionPerformed);
 

@@ -4,19 +4,33 @@
  */
 package appointments;
 
+import interfaces.iViews.iView;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+import patients.PatientsList;
+
 /**
  *
  * @author joanreciojimenez
  */
-public class frmAppoinment extends javax.swing.JFrame {
-    
+public class frmAppoinment extends javax.swing.JFrame implements iView<Appointment>{
+    private AppointmentsList appointmentsList;
+    private PatientsList patientsList;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(frmAppoinment.class.getName());
+    private clinic.ClinicController controller;
+    private patients.Patient selectedPatient;
+    private Appointment appo;
 
     /**
      * Creates new form frmAppoinment
      */
-    public frmAppoinment() {
+    public frmAppoinment(AppointmentsList appointmentsList,PatientsList patientsList) {
         initComponents();
+        this.appointmentsList = appointmentsList;
+        this.patientsList = patientsList;
+        this.controller = clinic.ClinicController.getIntance(this);
     }
 
     /**
@@ -29,7 +43,6 @@ public class frmAppoinment extends javax.swing.JFrame {
     private void initComponents() {
 
         txtCodigo = new javax.swing.JTextField();
-        cmbPaciente = new javax.swing.JComboBox<>();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jSpinField1 = new com.toedter.components.JSpinField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -41,11 +54,12 @@ public class frmAppoinment extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblMotivo = new javax.swing.JLabel();
+        txtPacienteID = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        btnValidar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        cmbPaciente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbPaciente.addActionListener(this::cmbPacienteActionPerformed);
 
         txtmotivo.setColumns(20);
         txtmotivo.setRows(5);
@@ -55,16 +69,22 @@ public class frmAppoinment extends javax.swing.JFrame {
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         jLabel1.setText("Codigo");
 
-        jLabel2.setText("Paciente");
+        jLabel2.setText("Paciente ID");
 
         jLabel3.setText("Fecha");
 
         jLabel4.setText("Hora");
 
         lblMotivo.setText("Motivo");
+
+        jLabel5.setText("Nombre");
+
+        btnValidar.setText("Validar");
+        btnValidar.addActionListener(this::btnValidarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,19 +96,21 @@ public class frmAppoinment extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(422, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cmbPaciente, javax.swing.GroupLayout.Alignment.LEADING, 0, 123, Short.MAX_VALUE)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(46, 46, 46)
+                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1))
@@ -96,10 +118,16 @@ public class frmAppoinment extends javax.swing.JFrame {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(35, 35, 35))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(txtPacienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(btnValidar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,11 +136,16 @@ public class frmAppoinment extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPacienteID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnValidar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
@@ -120,21 +153,17 @@ public class frmAppoinment extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCancelar)
+                                .addComponent(btnGuardar))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCancelar)
-                                    .addComponent(btnGuardar)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lblMotivo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -142,12 +171,62 @@ public class frmAppoinment extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        selectedPatient = null;
+        clear();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void cmbPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPacienteActionPerformed
+ 
+    private void btnValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPacienteActionPerformed
+        String id = txtPacienteID.getText().trim();
+        if (id.isEmpty()) {
+            showError("Ingrese el id del paciente");
+            return; 
+        }
+        patients.Patient pat = controller.findPatient(id);
+        if (pat == null) {
+            showError("El paciente no existe");
+            selectedPatient = null;
+            txtNombre.setText("");
+            return;
+        }
+        selectedPatient = pat;
+        txtNombre.setText(pat.getFullName());
+    }//GEN-LAST:event_btnValidarActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if (!validarDatos()) return;
+        String codigo = txtCodigo.getText().trim();
+        LocalDate fecha = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalTime hora = LocalTime.of(jSpinField1.getValue(), 0);
+        appo = new Appointment(codigo, selectedPatient, fecha, hora, txtmotivo.getText().trim());
+        if (controller.scheduleAppointment(appo)) {
+            showMenssage("Cita Guardada Correctamente");
+            selectedPatient = null;
+            clear();
+        }else{
+            showError("Ya existe una cita con ese cidigo");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+    private boolean validarDatos() {
+        if (selectedPatient == null) {
+            showError("Primero debe validar un paciente");
+            return false;
+        }
+        if (txtCodigo.getText().trim().isEmpty()) {
+            showError("Ingrese un código para la cita");
+            return false;
+        }
+        if (jDateChooser1.getDate() == null) {
+            showError("Seleccione una fecha");
+            return false;
+        }
+        if(txtmotivo.getText().trim().isEmpty()){
+            showError("Ingrese un motivo ");
+            return false;
+        }
+        return true;
+    }
     /**
      * @param args the command line arguments
      */
@@ -170,22 +249,52 @@ public class frmAppoinment extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new frmAppoinment().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new frmAppoinment(new appointments.AppointmentsList(),new patients.PatientsList()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cmbPaciente;
+    private javax.swing.JButton btnValidar;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.components.JSpinField jSpinField1;
     private javax.swing.JLabel lblMotivo;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPacienteID;
     private javax.swing.JTextArea txtmotivo;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void clear() {
+         txtCodigo.setText("");
+         txtPacienteID.setText("");   
+         txtNombre.setText("");
+         jDateChooser1.setDate(null);
+         jSpinField1.setValue(0);
+         txtmotivo.setText("");
+    }
+
+    @Override
+    public void showData(Appointment data) {
+        txtCodigo.setText(data.getCode());
+        txtmotivo.setText(data.getReason());
+
+    }
+
+    @Override
+    public void showError(String error) {
+        JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showMenssage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
