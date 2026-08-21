@@ -4,6 +4,11 @@
  */
 package patients;
 
+import clinic.ClinicController;
+import interfaces.iViews.iView;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hilar
@@ -12,11 +17,11 @@ public class FrmPatients extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmPatients.class.getName());
 
-    /**
-     * Creates new form FrmPatients
-     */
+    private ClinicController controller;
+    
     public FrmPatients() {
         initComponents();
+        controller = ClinicController.getIntance((iView) this);
     }
 
     /**
@@ -39,18 +44,20 @@ public class FrmPatients extends javax.swing.JFrame {
         lblTelefono = new javax.swing.JLabel();
         txtNumeroDeTelefono = new javax.swing.JTextField();
         lblCorreoElectronico = new javax.swing.JLabel();
-        txtCorreoElectrinico = new javax.swing.JTextField();
+        txtCorreoElectronico = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscarPacientes = new javax.swing.JButton();
+        btnVerRegistrosPacientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblPanelPacientes.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblPanelPacientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPanelPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/emblem-people.png"))); // NOI18N
         lblPanelPacientes.setText("Pacientes");
         lblPanelPacientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -66,18 +73,30 @@ public class FrmPatients extends javax.swing.JFrame {
 
         lblCorreoElectronico.setText("Correo Electronico:");
 
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/New.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(this::btnAgregarActionPerformed);
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Save.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
+
+        jButton4.setText("Devolver");
         jButton4.addActionListener(this::jButton4ActionPerformed);
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Delete.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
+        btnBuscarPacientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Search.png"))); // NOI18N
         btnBuscarPacientes.setText("Buscar");
+        btnBuscarPacientes.addActionListener(this::btnBuscarPacientesActionPerformed);
+
+        btnVerRegistrosPacientes.setText("Ver Registros");
+        btnVerRegistrosPacientes.addActionListener(this::btnVerRegistrosPacientesActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,22 +107,20 @@ public class FrmPatients extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPanelPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtIdentificacion, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblIdentificacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                        .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtNombreCompleto))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblFechaDeNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                            .addComponent(txtFechaDeNacimiento))
-                        .addGap(67, 67, 67))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnGuardar)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnActualizar)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton4)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnEliminar)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnBuscarPacientes)
+                        .addGap(0, 3, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -111,20 +128,24 @@ public class FrmPatients extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCorreoElectrinico, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAgregar)
+                                    .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnGuardar)
-                                .addGap(28, 28, 28)
-                                .addComponent(jButton3)
-                                .addGap(30, 30, 30)
-                                .addComponent(jButton4)
-                                .addGap(30, 30, 30)
-                                .addComponent(btnEliminar)
-                                .addGap(26, 26, 26)
-                                .addComponent(btnBuscarPacientes)))
-                        .addGap(0, 103, Short.MAX_VALUE)))
+                                .addComponent(btnVerRegistrosPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtIdentificacion, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblIdentificacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtNombreCompleto))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblFechaDeNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                    .addComponent(txtFechaDeNacimiento))))
+                        .addGap(67, 67, 67)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,17 +171,18 @@ public class FrmPatients extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroDeTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCorreoElectrinico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerRegistrosPacientes))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnBuscarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,11 +202,34 @@ public class FrmPatients extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdentificacionActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_txtIdentificacionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+
+
+    try {
+
+        Patient patient = new Patient(
+                txtIdentificacion.getText(),
+                txtNombreCompleto.getText(),
+                LocalDate.parse(txtFechaDeNacimiento.getText()),
+                txtNumeroDeTelefono.getText(),
+                txtCorreoElectronico.getText()
+        );
+
+        controller.addPatient(patient);
+
+        JOptionPane.showMessageDialog(this,
+                "Paciente guardado correctamente");
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(this,
+                "Error al guardar paciente");
+
+    }
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -192,16 +237,76 @@ public class FrmPatients extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+
+
+    String id = txtIdentificacion.getText();
+
+    controller.removePatient(id);
+
+    JOptionPane.showMessageDialog(this,
+            "Paciente eliminado");
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        txtIdentificacion.setText("");
+        txtNombreCompleto.setText("");
+        txtFechaDeNacimiento.setText("");
+        txtNumeroDeTelefono.setText("");
+        txtCorreoElectronico.setText("");
+        txtIdentificacion.requestFocus();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnBuscarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacientesActionPerformed
+
+    String id = txtIdentificacion.getText();
+
+    Patient patient = controller.findPatient(id);
+
+    if (patient == null) {
+
+        JOptionPane.showMessageDialog(this,
+                "Paciente no encontrado");
+        return;
+    }
+
+    txtNombreCompleto.setText(patient.getFullName());
+    txtFechaDeNacimiento.setText(
+            patient.getBirthDate().toString());
+
+    txtNumeroDeTelefono.setText(
+            patient.getPhone());
+
+    txtCorreoElectronico.setText(
+            patient.getEmail());
+
+    }//GEN-LAST:event_btnBuscarPacientesActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+
+
+    Patient patient =
+            controller.findPatient(txtIdentificacion.getText());
+
+    if (patient == null) {
+
+        JOptionPane.showMessageDialog(this,
+                "Paciente no encontrado");
+
+        return;
+    }
+
+    patient.setPhone(txtNumeroDeTelefono.getText());
+    patient.setEmail(txtCorreoElectronico.getText());
+
+    JOptionPane.showMessageDialog(this,
+            "Paciente actualizado");    
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnVerRegistrosPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRegistrosPacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerRegistrosPacientesActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -225,11 +330,12 @@ public class FrmPatients extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarPacientes;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnVerRegistrosPacientes;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCorreoElectronico;
@@ -238,7 +344,7 @@ public class FrmPatients extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPanelPacientes;
     private javax.swing.JLabel lblTelefono;
-    private javax.swing.JTextField txtCorreoElectrinico;
+    private javax.swing.JTextField txtCorreoElectronico;
     private javax.swing.JTextField txtFechaDeNacimiento;
     private javax.swing.JTextField txtIdentificacion;
     private javax.swing.JTextField txtNombreCompleto;
