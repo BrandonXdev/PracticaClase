@@ -37,10 +37,7 @@ public class WaitingRoomList implements SecuencialDynamicsList<Patient> {
 
     @Override
     public boolean add(Patient item) {
-        return waitingList.add(item); // hacer try-catch.    
-      
-       
-   
+        return waitingList.add(item); // hacer try-catch.
     }
 
     @Override
