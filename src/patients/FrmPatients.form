@@ -46,27 +46,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblPanelPacientes" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtIdentificacion" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblIdentificacion" alignment="0" pref="129" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="lblNombre" min="-2" pref="121" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="txtNombreCompleto" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblFechaDeNacimiento" pref="133" max="32767" attributes="0"/>
-                              <Component id="txtFechaDeNacimiento" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="btnActualizar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="btnBuscarPacientes" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="lblTelefono" max="32767" attributes="0"/>
@@ -75,24 +69,32 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblCorreoElectronico" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="txtCorreoElectrinico" min="-2" pref="285" max="-2" attributes="0"/>
+                                      <Component id="txtCorreoElectronico" min="-2" pref="320" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnVerRegistrosPacientes" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txtIdentificacion" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="lblIdentificacion" alignment="0" pref="129" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lblNombre" min="-2" pref="121" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="txtNombreCompleto" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="lblFechaDeNacimiento" pref="133" max="32767" attributes="0"/>
+                                      <Component id="txtFechaDeNacimiento" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="btnBuscarPacientes" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="103" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -126,7 +128,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtNumeroDeTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtCorreoElectrinico" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCorreoElectronico" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnVerRegistrosPacientes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -134,12 +137,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnEliminar" alignment="1" min="-2" pref="69" max="-2" attributes="0"/>
                           <Component id="jButton4" alignment="1" min="-2" pref="69" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="btnActualizar" min="-2" pref="69" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btnAgregar" max="32767" attributes="0"/>
                       <Component id="btnGuardar" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -151,6 +154,9 @@
               <Font name="Segoe UI" size="36" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icons/emblem-people.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Pacientes"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -195,10 +201,13 @@
             <Property name="text" type="java.lang.String" value="Correo Electronico:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtCorreoElectrinico">
+        <Component class="javax.swing.JTextField" name="txtCorreoElectronico">
         </Component>
         <Component class="javax.swing.JButton" name="btnAgregar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icons/New.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
           <Events>
@@ -207,21 +216,36 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icons/Save.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnActualizar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Actualizar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Devolver"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnEliminar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icons/Delete.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
@@ -230,8 +254,22 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscarPacientes">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Icons/Search.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarPacientesActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnVerRegistrosPacientes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ver Registros"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerRegistrosPacientesActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
