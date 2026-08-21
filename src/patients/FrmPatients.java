@@ -5,6 +5,7 @@
 package patients;
 
 import clinic.ClinicController;
+import clinic.FrmMenuPrincipal;
 import interfaces.iViews.iView;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -26,22 +27,42 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    txtIdentificacion.setText("");
+    txtNombreCompleto.setText("");
+    txtFechaDeNacimiento.setText("");
+    txtNumeroDeTelefono.setText("");
+    txtCorreoElectronico.setText("");
     }
 
     @Override
     public void showData(Patient data) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+ 
+    txtIdentificacion.setText(data.getId());
+    txtNombreCompleto.setText(data.getFullName());
+    txtFechaDeNacimiento.setText(data.getBirthDate().toString());
+    txtNumeroDeTelefono.setText(data.getPhone());
+    txtCorreoElectronico.setText(data.getEmail());
     }
 
     @Override
     public void showError(String error) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+    JOptionPane.showMessageDialog(
+            this,
+            error,
+            "Error",
+            JOptionPane.ERROR_MESSAGE);
+
     }
 
     @Override
     public void showMenssage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    JOptionPane.showMessageDialog(
+            this,
+            message,
+            "Información",
+            JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     
@@ -61,10 +82,10 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
         txtNumeroDeTelefono = new javax.swing.JTextField();
         lblCorreoElectronico = new javax.swing.JLabel();
         txtCorreoElectronico = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnDevolver = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnBuscarPacientes = new javax.swing.JButton();
         btnVerRegistrosPacientes = new javax.swing.JButton();
@@ -88,8 +109,8 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
 
         lblCorreoElectronico.setText("Correo Electronico:");
 
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(this::btnLimpiarActionPerformed);
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
@@ -97,8 +118,8 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(this::btnActualizarActionPerformed);
 
-        jButton4.setText("Devolver");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
+        btnDevolver.setText("Devolver");
+        btnDevolver.addActionListener(this::btnDevolverActionPerformed);
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(this::btnEliminarActionPerformed);
@@ -118,18 +139,18 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPanelPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
+                        .addComponent(btnLimpiar)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar)
                         .addGap(28, 28, 28)
                         .addComponent(btnActualizar)
                         .addGap(30, 30, 30)
-                        .addComponent(jButton4)
+                        .addComponent(btnDevolver)
                         .addGap(30, 30, 30)
                         .addComponent(btnEliminar)
                         .addGap(26, 26, 26)
-                        .addComponent(btnBuscarPacientes)
-                        .addGap(0, 107, Short.MAX_VALUE))
+                        .addComponent(btnBuscarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -141,7 +162,7 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
                                     .addComponent(lblCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(btnVerRegistrosPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnVerRegistrosPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtIdentificacion, javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,11 +210,11 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
                     .addComponent(btnBuscarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDevolver, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -218,7 +239,7 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
-
+        
     try {
 
         Patient patient = new Patient(
@@ -231,42 +252,60 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
 
         controller.addPatient(patient);
 
-        JOptionPane.showMessageDialog(this,
-                "Paciente guardado correctamente");
+        JOptionPane.showMessageDialog(
+                this,
+                "Paciente guardado correctamente"
+        );
+
+        clear();
 
     } catch (Exception e) {
 
-        JOptionPane.showMessageDialog(this,
-                "Error al guardar paciente");
-
+        JOptionPane.showMessageDialog(
+                this,
+                "Error al guardar paciente"
+        );
     }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolverActionPerformed
+    FrmMenuPrincipal frm = new FrmMenuPrincipal();
+    
+    frm.setVisible(true);
+    
+    }//GEN-LAST:event_btnDevolverActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
 
     String id = txtIdentificacion.getText();
 
+    Patient patient = controller.findPatient(id);
+
+    if (patient == null) {
+        JOptionPane.showMessageDialog(this,
+                "Paciente no encontrado");
+        return;
+    }
+
     controller.removePatient(id);
 
     JOptionPane.showMessageDialog(this,
             "Paciente eliminado");
 
+    clear();
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtIdentificacion.setText("");
         txtNombreCompleto.setText("");
         txtFechaDeNacimiento.setText("");
         txtNumeroDeTelefono.setText("");
         txtCorreoElectronico.setText("");
         txtIdentificacion.requestFocus();
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacientesActionPerformed
 
@@ -342,12 +381,12 @@ public class FrmPatients extends javax.swing.JFrame implements iView<Patient> {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarPacientes;
+    private javax.swing.JButton btnDevolver;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnVerRegistrosPacientes;
-    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCorreoElectronico;
     private javax.swing.JLabel lblFechaDeNacimiento;
