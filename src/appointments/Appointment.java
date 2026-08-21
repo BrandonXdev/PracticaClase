@@ -12,7 +12,7 @@ import patients.Patient;
  *
  * @author jprod
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment>{
     //implememtar Comparable<Appointment>
     private String code;
     private Patient patient;
@@ -73,4 +73,11 @@ public class Appointment {
 
     //public int compareTo(Appointment other); date → time → code
 
+    @Override
+    public int compareTo(Appointment other) {
+        if(this.getDate().isBefore(other.getDate())) return -1;
+        if(this.getTime().isBefore(other.getTime())) return -1;
+        if(this.getCode().compareTo(other.getCode()) == -1 ) return -1; 
+        return 1;
+    }
 }
